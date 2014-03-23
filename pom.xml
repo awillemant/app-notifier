@@ -1,0 +1,42 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>awt</groupId>
+	<artifactId>appNotifier</artifactId>
+	<version>2.0</version>
+	<packaging>pom</packaging>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<slf4j-version>1.7.6</slf4j-version>
+		<spring-version>3.2.8.RELEASE</spring-version>
+		
+		<spring-security-version>3.2.1.RELEASE</spring-security-version>
+		
+		<servlet-version>3.0.1</servlet-version>
+		<resteasy-version>3.0.6.Final</resteasy-version>
+		
+		<logback-version>1.1.1</logback-version>
+
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j-version}</version>
+		</dependency>
+	</dependencies>
+
+
+	
+
+	<modules>
+		<module>appNotifier-core</module>
+		<module>appNotifier-admin-middle</module>
+		<module>appNotifier-admin-front</module>
+		<module>appNotifier-public-middle</module>
+		<module>appNotifier-web-common</module>
+	</modules>
+</project>

@@ -1,0 +1,51 @@
+
+<div class="modal-header">
+	<button type="button" class="close" x-ng-click="close()">&times;</button>
+	<h4 class="modal-title">Code d'intégration</h4>
+</div>
+
+<div class="modal-body">
+	<form class="form-inline">
+		<div class="row">
+			<div class="form-group col-sm-3"><label class="checkbox"><input type="checkbox" x-ng-model="importStyles" /> Importer les styles</label></div>
+			<div class="form-group col-sm-3" x-ng-show="!importStyles">
+				<div class="input-group input-group-sm">
+					<span class="input-group-addon">classe CSS</span> <input x-ng-model="classOfBanner" type="text" class=" form-control" />
+				</div>
+			</div>
+			<div class="form-group col-sm-3" x-ng-show="!importStyles">
+				<div class="input-group input-group-sm">
+					<span class="input-group-addon">ancre</span> <input x-ng-model="anchor" type="text" class=" form-control" />
+				</div>
+			</div>
+			<div class="form-group col-sm-3">
+				<div class="input-group input-group-sm">
+					<span class="input-group-addon">refresh (sec)</span> <input x-ng-model="refresh" type="text" class=" form-control" />
+				</div>
+			</div>
+		</div>
+	</form>
+
+
+
+	<code>
+		<pre id="snippetOfCode">
+var _appNotifier = _appNotifier || [];
+_appNotifier.push(['_appUid', '{{appUID}}']);
+_appNotifier.push(['_importStyle',{{importStyles}}]);
+_appNotifier.push(['_classOfBanner', {{classOfBanner | undefined}}]);
+_appNotifier.push(['_anchor', {{anchor | undefined}}]);
+_appNotifier.push(['_refresh', {{refresh | zero}}]);
+(function() {
+	var an = document.createElement('script'); an.type = 'text/javascript'; an.async = true;
+	an.src = '{{urlRoot}}/public/appnotifier.js';
+	var scripts = document.getElementsByTagName('script');
+	var s = scripts[scripts.length-1]; s.parentNode.insertBefore(an, s.nextSibling);
+})(); 
+	</pre>
+	</code>
+	
+	
+</div>
+
+

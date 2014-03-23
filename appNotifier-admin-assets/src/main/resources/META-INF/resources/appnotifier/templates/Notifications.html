@@ -1,0 +1,55 @@
+<div class="row">
+	<div class="col-sm-3 col-md-2 sidebar">
+		<ul class="nav nav-sidebar">
+			<li ><a href="#/"><i class="fa fa-mail-reply"></i> retour aux applications</a></li>
+			<li class="active"><a href=""><i class="fa fa-list"></i> Liste des notifications</a></li>
+			<li><a href="" x-ng-click="createNotif()"><i class="fa fa-plus"></i> Ajouter une notification</a></li>
+			<li><a href="" x-ng-click="showIntegrationCode()"><i class="fa fa-code"></i> Code d'intégration</a></li>
+		</ul>
+
+	</div>
+	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+		<h1>Liste des notifications <small><a href="{{applicationUrl}}" target="_blank">{{applicationName}}</a></small></h1>
+
+		<div class="input-group input-group-sm col-md-2 pull-right searchBox">
+			<input type="text" class="form-control " x-ng-model="queryFilter"/> <span class="input-group-addon"><i class="fa fa-search"></i></span>
+		</div>
+
+		<table class="table">
+			<tr>
+				<th class="actif t-first"></th>
+       			<th class="url">Message</th>
+       			<th class="type"><a href="" ng-click="predicate = 'type'; reverse=!reverse">Type</a></th>
+       			<th class="dateDebut"><a href="" ng-click="predicate = 'dateDebut'; reverse=!reverse">Début</a></th>
+       			<th class="dateFin"><a href="" ng-click="predicate = 'dateFin'; reverse=!reverse">Fin</a></th>
+       			<th class="actif text-center"><a href="" ng-click="predicate = 'actif'; reverse=!reverse">Actif</a></th>
+       			<th class="actions t-last"></th>
+			</tr>
+			<tr x-ng-repeat="currentNotification in notifications | filter:queryFilter | orderBy:predicate:reverse">
+				<td><i class="fa fa-check" x-ng-show="currentNotification.shown"></i></td>
+				<td tooltip-placement="top" tooltip-append-to-body="true" tooltip="{{currentNotification.message}}">{{currentNotification.message | truncate:60}}</td>
+				<td><span class="label" x-ng-class="{'label-danger':currentNotification.type=='ERROR','label-warning':currentNotification.type=='WARNING','label-info':currentNotification.type=='INFO'}">{{currentNotification.type | lowercase}}</span></td>
+				<td>{{currentNotification.dateDebut | date:'dd/MM/yyyy HH:mm'}}</td>
+				<td>{{currentNotification.dateFin | date:'dd/MM/yyyy HH:mm'}}</td>
+				<td class="text-center"><i class="fa" x-ng-click="toggleActif($index)" x-ng-class="{'fa-check-square-o text-success': currentNotification.actif,'fa-square-o text-muted': !currentNotification.actif}"></i></td>
+				<td>
+					<button class="btn btn-default btn-sm" x-ng-click="editNotif(currentNotification)">
+						<i class="fa fa-pencil"></i>
+					</button>
+					<button class="btn btn-danger btn-sm" x-ng-click="deleteNotif(currentNotification)">
+						<i class="fa fa-trash-o"></i>
+					</button>
+				</td>
+			</tr>
+
+		</table>
+		
+		
+       
+    </div>
+
+	</div>
+</div>
+
+
+
