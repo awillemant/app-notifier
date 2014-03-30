@@ -42,16 +42,39 @@
 	
 	
 	
+	<servlet>
+		<servlet-name>AppNotifierServlet</servlet-name>
+		<servlet-class>appnotifier.web.servlet.AppNotifierServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>AppNotifierServlet</servlet-name>
+		<url-pattern>/appnotifier.js</url-pattern>
+	</servlet-mapping>
+	
+	
+	
+	
+	
 	<filter>
 		<filter-name>NoCacheFilter</filter-name>
 		<filter-class>appnotifier.web.filter.NoCacheFilter</filter-class>
 	</filter>
+	
+	<filter>
+		<filter-name>JsonPFilter</filter-name>
+		<filter-class>appnotifier.web.filter.JsonPFilter</filter-class>
+	</filter>
 
 	<filter-mapping>
 		<filter-name>NoCacheFilter</filter-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>/rs/public/*</url-pattern>
 	</filter-mapping>
-	
+
+	<filter-mapping>
+		<filter-name>JsonPFilter</filter-name>
+		<url-pattern>/rs/public/*</url-pattern>
+	</filter-mapping>
 	
 
 

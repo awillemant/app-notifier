@@ -12,7 +12,6 @@ import javax.ws.rs.core.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import appnotifier.core.entity.Application;
 import appnotifier.core.service.ApplicationService;
@@ -30,7 +29,6 @@ public class ApplicationsWS {
 	private ApplicationService applicationService;
 
 
-	@Secured("ROLE_BASIC")
 	@GET
 	@Path("/")
 	@JsonView(Application.ListView.class)
@@ -41,7 +39,6 @@ public class ApplicationsWS {
 	}
 
 
-	@Secured("ROLE_BASIC")
 	@GET
 	@Path("/{appUID}")
 	@JsonView(Application.MinimalView.class)
@@ -52,7 +49,6 @@ public class ApplicationsWS {
 	}
 
 
-	@Secured("ROLE_BASIC")
 	@POST
 	@Path("/")
 	public void saveApplication(Application newApp) {
@@ -61,7 +57,6 @@ public class ApplicationsWS {
 	}
 
 
-	@Secured("ROLE_BASIC")
 	@POST
 	@Path("/{id}")
 	public void updateApplication(@PathParam("id") long id, Application updatedApp) {
@@ -70,7 +65,6 @@ public class ApplicationsWS {
 	}
 
 
-	@Secured("ROLE_BASIC")
 	@DELETE
 	@Path("/{id}")
 	public void deleteApplication(@PathParam("id") long id) {

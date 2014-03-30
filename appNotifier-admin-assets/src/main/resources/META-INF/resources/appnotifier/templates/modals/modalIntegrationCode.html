@@ -38,7 +38,7 @@ _appNotifier.push(['_anchor', {{anchor | undefined}}]);
 _appNotifier.push(['_refresh', {{refresh | zero}}]);
 (function() {
 	var an = document.createElement('script'); an.type = 'text/javascript'; an.async = true;
-	an.src = '{{urlRoot}}/public/appnotifier.js';
+	an.src = '{{urlRoot}}/appnotifier.js';
 	var scripts = document.getElementsByTagName('script');
 	var s = scripts[scripts.length-1]; s.parentNode.insertBefore(an, s.nextSibling);
 })(); 

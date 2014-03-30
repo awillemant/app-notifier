@@ -13,7 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 
 @Controller
@@ -30,7 +29,6 @@ public class PropertiesWS {
 	private Properties configurationProperties;
 
 
-	@Secured("ROLE_BASIC")
 	@GET
 	@Path("/urlRoot")
 	public String getUrlRoot() {
