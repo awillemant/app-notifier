@@ -5,17 +5,13 @@ import appnotifier.core.entity.Application;
 
 public interface ApplicationService {
 
-	List<Application> getAll();
+    List<Application> getAll();
 
+    void save(Application newApp);
 
-	void save(Application newApp);
+    void update(long id, Application updatedApp);
 
+    void delete(long id);
 
-	void update(long id, Application updatedApp);
-
-
-	void delete(long id);
-
-
-	Application getByAppUID(String appUID);
+    Application getByAppUID(String appUID);
 }

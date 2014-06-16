@@ -19,18 +19,17 @@ import com.fasterxml.jackson.annotation.JsonView;
 @Path("/rs/public")
 public class PublicWS {
 
-	@Autowired
-	private NotificationService notificationService;
+    @Autowired
+    private NotificationService notificationService;
 
-	@Context
-	private HttpServletRequest request;
+    @Context
+    private HttpServletRequest request;
 
-
-	@GET
-	@Path("/{appUid}")
-	@JsonView(Notification.ListView.class)
-	public List<Notification> getNotificationsByAppUid(@PathParam("appUid") String appUid) {
-		List<Notification> notifications = notificationService.getCurrentNotificationsByAppUid(appUid);
-		return notifications;
-	}
+    @GET
+    @Path("/{appUid}")
+    @JsonView(Notification.ListView.class)
+    public List<Notification> getNotificationsByAppUid(@PathParam("appUid") String appUid) {
+        List<Notification> notifications = notificationService.getCurrentNotificationsByAppUid(appUid);
+        return notifications;
+    }
 }

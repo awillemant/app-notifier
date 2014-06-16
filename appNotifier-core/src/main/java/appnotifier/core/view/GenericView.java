@@ -1,4 +1,4 @@
 package appnotifier.core.view;
 
-
-public interface GenericView {}
+public interface GenericView {
+}

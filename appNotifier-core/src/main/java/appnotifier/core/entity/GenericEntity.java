@@ -13,61 +13,52 @@ import com.fasterxml.jackson.annotation.JsonView;
 @MappedSuperclass
 public abstract class GenericEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonView(GenericView.class)
-	protected Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(GenericView.class)
+    protected Long id;
 
-	protected Date dateCreation;
+    protected Date dateCreation;
 
-	protected Date dateModification;
+    protected Date dateModification;
 
+    public Long getId() {
+        return id;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
+    public Date getDateCreation() {
+        return dateCreation;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setDateCreation(Date dateCreation) {
+        this.dateCreation = dateCreation;
+    }
 
+    public Date getDateModification() {
+        return dateModification;
+    }
 
-	public Date getDateCreation() {
-		return dateCreation;
-	}
+    public void setDateModification(Date dateModification) {
+        this.dateModification = dateModification;
+    }
 
+    public boolean equals(GenericEntity entity) {
+        return this.id.equals(entity.getId());
+    }
 
-	public void setDateCreation(Date dateCreation) {
-		this.dateCreation = dateCreation;
-	}
+    @PreUpdate
+    public void preUpdate() {
+        dateModification = new Date();
+    }
 
-
-	public Date getDateModification() {
-		return dateModification;
-	}
-
-
-	public void setDateModification(Date dateModification) {
-		this.dateModification = dateModification;
-	}
-
-
-	public boolean equals(GenericEntity entity) {
-		return this.id.equals(entity.getId());
-	}
-
-
-	@PreUpdate
-	public void preUpdate() {
-		dateModification = new Date();
-	}
-
-
-	@PrePersist
-	public void prePersist() {
-		Date now = new Date();
-		dateCreation = now;
-		dateModification = now;
-	}
+    @PrePersist
+    public void prePersist() {
+        Date now = new Date();
+        dateCreation = now;
+        dateModification = now;
+    }
 }
