@@ -1,83 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-	version="3.0">
-	<display-name>appnotifier-public-middle</display-name>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+    <display-name>appnotifier-public-middle</display-name>
 
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath*:META-INF/applicationContext*.xml</param-value>
+    </context-param>
+    <context-param>
+        <param-name>resteasy.scan</param-name>
+        <param-value>false</param-value>
+    </context-param>
+    <context-param>
+        <param-name>resteasy.providers</param-name>
+        <param-value>appnotifier.web.provider.DefaultViewInclusionHandlingProvider</param-value>
+    </context-param>
 
-	
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath*:META-INF/applicationContext*.xml</param-value>
-	</context-param>
-	
-	<context-param>
-		<param-name>resteasy.scan</param-name>
-		<param-value>false</param-value>
-	</context-param>
+    <listener>
+        <listener-class>org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap</listener-class>
+    </listener>
+    <listener>
+        <listener-class>org.jboss.resteasy.plugins.spring.SpringContextLoaderListener</listener-class>
+    </listener>
 
-	<context-param>
-		<param-name>resteasy.providers</param-name>
-		<param-value>appnotifier.web.provider.DefaultViewInclusionHandlingProvider</param-value>
-	</context-param>
+    <servlet>
+        <servlet-name>Resteasy</servlet-name>
+        <servlet-class>org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher</servlet-class>
+    </servlet>
 
-	<listener>
-		<listener-class>org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap</listener-class>
-	</listener>
+    <servlet-mapping>
+        <servlet-name>Resteasy</servlet-name>
+        <url-pattern>/rs/*</url-pattern>
+    </servlet-mapping>
 
-	<listener>
-		<listener-class>org.jboss.resteasy.plugins.spring.SpringContextLoaderListener</listener-class>
-	</listener>
+    <servlet>
+        <servlet-name>AppNotifierServlet</servlet-name>
+        <servlet-class>appnotifier.web.servlet.AppNotifierServlet</servlet-class>
+    </servlet>
 
-	<servlet>
-		<servlet-name>Resteasy</servlet-name>
-		<servlet-class>org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher</servlet-class>
-	</servlet>
+    <servlet-mapping>
+        <servlet-name>AppNotifierServlet</servlet-name>
+        <url-pattern>/appnotifier.js</url-pattern>
+    </servlet-mapping>
 
-	<servlet-mapping>
-		<servlet-name>Resteasy</servlet-name>
-		<url-pattern>/rs/*</url-pattern>
-	</servlet-mapping>
-	
-	
-	
-	<servlet>
-		<servlet-name>AppNotifierServlet</servlet-name>
-		<servlet-class>appnotifier.web.servlet.AppNotifierServlet</servlet-class>
-	</servlet>
+    <filter>
+        <filter-name>NoCacheFilter</filter-name>
+        <filter-class>appnotifier.web.filter.NoCacheFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>JsonPFilter</filter-name>
+        <filter-class>appnotifier.web.filter.JsonPFilter</filter-class>
+    </filter>
 
-	<servlet-mapping>
-		<servlet-name>AppNotifierServlet</servlet-name>
-		<url-pattern>/appnotifier.js</url-pattern>
-	</servlet-mapping>
-	
-	
-	
-	
-	
-	<filter>
-		<filter-name>NoCacheFilter</filter-name>
-		<filter-class>appnotifier.web.filter.NoCacheFilter</filter-class>
-	</filter>
-	
-	<filter>
-		<filter-name>JsonPFilter</filter-name>
-		<filter-class>appnotifier.web.filter.JsonPFilter</filter-class>
-	</filter>
-
-	<filter-mapping>
-		<filter-name>NoCacheFilter</filter-name>
-		<url-pattern>/rs/public/*</url-pattern>
-	</filter-mapping>
-
-	<filter-mapping>
-		<filter-name>JsonPFilter</filter-name>
-		<url-pattern>/rs/public/*</url-pattern>
-	</filter-mapping>
-	
-
-
-
-
+    <filter-mapping>
+        <filter-name>NoCacheFilter</filter-name>
+        <url-pattern>/rs/public/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>JsonPFilter</filter-name>
+        <url-pattern>/rs/public/*</url-pattern>
+    </filter-mapping>
 </web-app>

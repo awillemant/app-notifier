@@ -9,10 +9,9 @@ import appnotifier.core.entity.Notification;
 
 public interface NotificationDAO extends JpaRepository<Notification, Long> {
 
-	@Query(value = "FROM Notification n WHERE :now > n.dateDebut AND :now < n.dateFin AND n.actif=true AND n.application.uid=:appuid")
-	List<Notification> findCurrentNotificationsByAppUID(@Param("now") Date now, @Param("appuid") String appUID);
+    @Query(value = "FROM Notification n WHERE :now > n.dateDebut AND :now < n.dateFin AND n.actif=true AND n.application.uid=:appuid")
+    List<Notification> findCurrentNotificationsByAppUID(@Param("now") Date now, @Param("appuid") String appUID);
 
-
-	@Query(value = "FROM Notification n WHERE n.application.uid=:appuid")
-	List<Notification> findAllNotificationsByAppUID(@Param("appuid") String appUid);
+    @Query(value = "FROM Notification n WHERE n.application.uid=:appuid")
+    List<Notification> findAllNotificationsByAppUID(@Param("appuid") String appUid);
 }

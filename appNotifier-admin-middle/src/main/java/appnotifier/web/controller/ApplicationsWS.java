@@ -23,52 +23,47 @@ import com.fasterxml.jackson.annotation.JsonView;
 @Path("/rs/applications")
 public class ApplicationsWS {
 
-	private static Logger logger = LoggerFactory.getLogger(ApplicationsWS.class);
+    private static Logger logger = LoggerFactory.getLogger(ApplicationsWS.class);
 
-	@Autowired
-	private ApplicationService applicationService;
+    @Autowired
+    private ApplicationService applicationService;
 
+    @GET
+    @Path("/")
+    @JsonView(Application.ListView.class)
+    public List<Application> getAllApplications() {
+        logger.info("recupération de toutes les applications");
+        List<Application> apps = applicationService.getAll();
+        return apps;
+    }
 
-	@GET
-	@Path("/")
-	@JsonView(Application.ListView.class)
-	public List<Application> getAllApplications() {
-		logger.info("recupération de toutes les applications");
-		List<Application> apps = applicationService.getAll();
-		return apps;
-	}
+    @GET
+    @Path("/{appUID}")
+    @JsonView(Application.MinimalView.class)
+    public Application getApplicationByUID(@PathParam("appUID") String appUID) {
+        logger.info("Récupération de l'application {}", appUID);
+        Application application = applicationService.getByAppUID(appUID);
+        return application;
+    }
 
+    @POST
+    @Path("/")
+    public void saveApplication(Application newApp) {
+        logger.info("Sauvegarde d'une nouvelle application");
+        applicationService.save(newApp);
+    }
 
-	@GET
-	@Path("/{appUID}")
-	@JsonView(Application.MinimalView.class)
-	public Application getApplicationByUID(@PathParam("appUID") String appUID) {
-		logger.info("Récupération de l'application {}", appUID);
-		Application application = applicationService.getByAppUID(appUID);
-		return application;
-	}
+    @POST
+    @Path("/{id}")
+    public void updateApplication(@PathParam("id") long id, Application updatedApp) {
+        logger.info("Mise à jour de l'application {}", id);
+        applicationService.update(id, updatedApp);
+    }
 
-
-	@POST
-	@Path("/")
-	public void saveApplication(Application newApp) {
-		logger.info("Sauvegarde d'une nouvelle application");
-		applicationService.save(newApp);
-	}
-
-
-	@POST
-	@Path("/{id}")
-	public void updateApplication(@PathParam("id") long id, Application updatedApp) {
-		logger.info("Mise à jour de l'application {}", id);
-		applicationService.update(id, updatedApp);
-	}
-
-
-	@DELETE
-	@Path("/{id}")
-	public void deleteApplication(@PathParam("id") long id) {
-		logger.info("Suppression de l'application {}", id);
-		applicationService.delete(id);
-	}
+    @DELETE
+    @Path("/{id}")
+    public void deleteApplication(@PathParam("id") long id) {
+        logger.info("Suppression de l'application {}", id);
+        applicationService.delete(id);
+    }
 }
