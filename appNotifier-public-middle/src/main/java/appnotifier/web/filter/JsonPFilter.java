@@ -2,6 +2,7 @@ package appnotifier.web.filter;
 
 import java.io.IOException;
 import java.io.OutputStream;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -9,15 +10,17 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class JsonPFilter implements Filter {
 
-    private static Logger logger = LoggerFactory.getLogger(JsonPFilter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(JsonPFilter.class);
 
     @Override
     public void destroy() {
+        LOGGER.info("Destroying {}...", this.getClass().getSimpleName());
     }
 
     @Override
@@ -33,6 +36,6 @@ public class JsonPFilter implements Filter {
 
     @Override
     public void init(FilterConfig arg0) throws ServletException {
-        logger.info("Initializing {}...", this.getClass().getSimpleName());
+        LOGGER.info("Initializing {}...", this.getClass().getSimpleName());
     }
 }

@@ -16,10 +16,11 @@ import org.slf4j.LoggerFactory;
 
 public class NoCacheFilter implements Filter {
 
-    private static Logger logger = LoggerFactory.getLogger(NoCacheFilter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(NoCacheFilter.class);
 
     @Override
     public void destroy() {
+        LOGGER.info("Destroying {}...", this.getClass().getSimpleName());
     }
 
     @Override
@@ -30,10 +31,10 @@ public class NoCacheFilter implements Filter {
 
         String uri = req.getRequestURI();
 
-        logger.debug("Filtering '{}' ...", uri);
+        LOGGER.debug("Filtering '{}' ...", uri);
 
         rep.setHeader("Pragma", "no-cache");
-        rep.setHeader("Cache-Control", "no-cache");
+        rep.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         rep.setDateHeader("Expires", 0);
 
         rep.setCharacterEncoding("UTF-8");
@@ -42,6 +43,6 @@ public class NoCacheFilter implements Filter {
 
     @Override
     public void init(FilterConfig arg0) throws ServletException {
-        logger.info("Initializing {}...", this.getClass().getSimpleName());
+        LOGGER.info("Initializing {}...", this.getClass().getSimpleName());
     }
 }

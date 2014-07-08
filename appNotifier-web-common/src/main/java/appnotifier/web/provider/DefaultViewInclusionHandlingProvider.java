@@ -30,7 +30,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Provider
 public class DefaultViewInclusionHandlingProvider extends ResteasyJackson2Provider {
 
-    private static final Logger logger = LoggerFactory.getLogger(DefaultViewInclusionHandlingProvider.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultViewInclusionHandlingProvider.class);
 
     @Override
     public void writeTo(Object value, Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType,
@@ -40,15 +40,15 @@ public class DefaultViewInclusionHandlingProvider extends ResteasyJackson2Provid
     }
 
     private void configureMapperForDefaultView(Class<?> type, Annotation[] annotations, MediaType mediaType) {
-        logger.debug("detection de la default view inclusion...");
+        LOGGER.debug("detection de la default view inclusion...");
         ObjectMapper mapper = locateMapper(type, mediaType);
         boolean defaultView = false;
 
         if (containsDefaultViewAnnotation(annotations)) {
-            logger.debug("default view inclusion detectee !");
+            LOGGER.debug("default view inclusion detectee !");
             defaultView = true;
         } else {
-            logger.debug("default view non detectee");
+            LOGGER.debug("default view non detectee");
         }
 
         mapper.configure(MapperFeature.DEFAULT_VIEW_INCLUSION, defaultView);

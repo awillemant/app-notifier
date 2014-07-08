@@ -2,6 +2,7 @@ package appnotifier.core.entity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -9,8 +10,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+
 import appnotifier.core.enumeration.TypeNotification;
 import appnotifier.core.view.GenericView;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -127,6 +130,6 @@ public class Notification extends GenericEntity {
     }
 
     public void toggleActif() {
-        actif = (actif == false);
+        actif = !actif;
     }
 }
