@@ -5,5 +5,5 @@ import appnotifier.core.entity.Application;
 
 public interface ApplicationDAO extends JpaRepository<Application, Long> {
 
-	Application findOneByUid(String appUID);
+    Application findOneByUid(String appUID);
 }
