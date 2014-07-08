@@ -34,8 +34,8 @@
 
 	<modules>
 		<module>appNotifier-core</module>
+		<module>appNotifier-admin-assets</module>
 		<module>appNotifier-admin-middle</module>
-		<module>appNotifier-admin-front</module>
 		<module>appNotifier-public-middle</module>
 		<module>appNotifier-web-common</module>
 	</modules>
