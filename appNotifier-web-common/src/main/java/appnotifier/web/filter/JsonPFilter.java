@@ -3,9 +3,7 @@ package appnotifier.web.filter;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import javax.servlet.Filter;
 import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -14,18 +12,18 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class JsonPFilter implements Filter {
+public class JsonPFilter extends AbstractFilter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JsonPFilter.class);
 
     @Override
-    public void destroy() {
-        LOGGER.info("Destroying {}...", this.getClass().getSimpleName());
+    protected Logger getLogger() {
+        return LOGGER;
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
-            ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        LOGGER.debug("passage dans le filtre '{}'", this.getClass().getSimpleName());
         HttpServletRequest req = (HttpServletRequest) request;
         String callbackFunctionName = req.getParameter("callback");
         OutputStream responseWriter = response.getOutputStream();
@@ -34,8 +32,4 @@ public class JsonPFilter implements Filter {
         responseWriter.write(");".getBytes());
     }
 
-    @Override
-    public void init(FilterConfig arg0) throws ServletException {
-        LOGGER.info("Initializing {}...", this.getClass().getSimpleName());
-    }
 }
