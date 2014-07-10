@@ -16,5 +16,5 @@
 
     <context:component-scan base-package="appnotifier.web.controller" />
     
-    <bean id="notificationService" class="appnotifier.web.controller.NotificationServiceMockImpl"></bean>
+    <bean id="notificationService" class="appnotifier.core.service.mock.NotificationServiceMockImpl"></bean>
 </beans>

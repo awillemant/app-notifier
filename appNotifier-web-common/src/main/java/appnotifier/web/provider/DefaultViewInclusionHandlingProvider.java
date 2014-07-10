@@ -58,7 +58,7 @@ public class DefaultViewInclusionHandlingProvider extends JacksonJaxbJsonProvide
 
     protected ObjectMapper configureMapperForDefaultView(Class<?> type, Annotation[] annotations, MediaType mediaType) {
         LOGGER.debug("detection de la default view inclusion...");
-        ObjectMapper mapper = locateMapper(type, mediaType);
+        ObjectMapper mapper = delegateProvider.locateMapper(type, mediaType);
         boolean defaultView = false;
         if (containsDefaultViewAnnotation(annotations)) {
             LOGGER.debug("default view inclusion detectee !");
@@ -67,7 +67,7 @@ public class DefaultViewInclusionHandlingProvider extends JacksonJaxbJsonProvide
             LOGGER.debug("default view non detectee");
         }
         mapper.configure(MapperFeature.DEFAULT_VIEW_INCLUSION, defaultView);
-        setMapper(mapper);
+        delegateProvider.setMapper(mapper);
         return mapper;
     }
 

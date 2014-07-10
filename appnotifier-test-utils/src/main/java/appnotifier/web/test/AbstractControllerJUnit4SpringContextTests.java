@@ -14,12 +14,10 @@ import org.junit.Before;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@ContextConfiguration(locations = { "classpath*:META-INF/applicationContext-test*.xml", })
+@ContextConfiguration(locations = { "classpath*:META-INF/test/applicationContext*.xml", })
 public abstract class AbstractControllerJUnit4SpringContextTests<T> extends AbstractJUnit4SpringContextTests {
 
     private Dispatcher dispatcher;
@@ -52,7 +50,7 @@ public abstract class AbstractControllerJUnit4SpringContextTests<T> extends Abst
         return response;
     }
 
-    protected <E> MockHttpResponseWrapper<E> executeRequestAndMapItToList(MockHttpRequest request, Class<E> targetClass) throws JsonParseException, JsonMappingException, IOException {
+    protected <E> MockHttpResponseWrapper<E> executeRequestAndMapItToList(MockHttpRequest request, Class<E> targetClass) throws IOException {
         MockHttpResponse response = new MockHttpResponse();
         dispatcher.invoke(request, response);
         JavaType type = mapper.getTypeFactory().constructCollectionType(List.class, targetClass);

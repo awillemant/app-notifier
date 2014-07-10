@@ -1,18 +1,13 @@
-package appnotifier.web.controller;
+package appnotifier.core.service.mock;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import appnotifier.core.entity.Notification;
 import appnotifier.core.service.NotificationService;
 
 public class NotificationServiceMockImpl implements NotificationService {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(NotificationServiceMockImpl.class);
 
     @Override
     public List<Notification> getCurrentNotificationsByAppUid(String appUid) {

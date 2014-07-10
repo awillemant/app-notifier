@@ -1,10 +1,12 @@
 package appnotifier.web.provider;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,6 +18,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 
 import org.jboss.resteasy.plugins.providers.jackson.ResteasyJackson2Provider;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -39,8 +42,12 @@ public class DefaultViewInclusionHandlingProviderTestCase {
     @InjectMocks
     private DefaultViewInclusionHandlingProvider provider = new DefaultViewInclusionHandlingProvider();
 
-    @org.mockito.Mock
-    private ResteasyJackson2Provider providerMock;
+    private ResteasyJackson2Provider providerMock = mock(ResteasyJackson2Provider.class);
+
+    @Before
+    public void init() {
+        when(providerMock.locateMapper(any(Class.class), any(MediaType.class))).thenReturn(new ObjectMapper());
+    }
 
     @Test
     public void shouldNotDetectDefaultViewAnnotationWithOnlyJsonView() {
