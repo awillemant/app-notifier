@@ -1,18 +1,4 @@
-(function(e, a, g, h, f, c, b, d) {
-	if (!(f = e.jQuery) || g > f.fn.jquery || h(f)) {
-		c = a.createElement("script");
-		c.type = "text/javascript";
-		c.src = "https://ajax.googleapis.com/ajax/libs/jquery/" + g + "/jquery.min.js";
-		c.onload = c.onreadystatechange = function() {
-			if (!b && (!(d = this.readyState) || d == "loaded" || d == "complete")) {
-				h((f = e.jQuery).noConflict(1), b = 1);
-				f(c).remove();
-			}
-		};
-		a.documentElement.childNodes[0].appendChild(c);
-	}
-})(window, document, "1.5", function($, L) {
-	// CODE TO EXECUTE
+(function AppNotifierLoadFunction( window, document, undefined ) {
 
 	var getParam = function(paramName) {
 		for (param in _appNotifier) {
@@ -22,85 +8,112 @@
 		}
 		return undefined;
 	};
-
+	
 	var refreshParam = getParam("_refresh");
 	var anchorParam = getParam("_anchor");
 	var importStyleParam = getParam("_importStyle");
-
-	var callAppNotifier = function() {
-
-		var jqxhr = $.getJSON("[[URL_ROOT]]rs/public/" + getParam("_appUid") + "?callback=?");
-		jqxhr.done(buildBanner);
-		jqxhr.fail(function(jqxhr, textStatus, error) {
-			console.error("error while retrieving jsonp data");
-			console.error(jqxhr);
-			console.error(textStatus);
-			console.error(error);
-		});
-	};
-
+	
+	
 	var getAnchor = function() {
 		var anchor;
 		if (!anchorParam || importStyleParam) {
-			anchor = $(".appnotifier-banner");
-			if (anchor.size() == 0) {
-				anchor = $("<div>").addClass("appnotifier-banner");
-				$("body").append(anchor);
+			anchor = document.querySelector(".appnotifier-banner");
+			if (anchor == undefined) {
+				anchor = document.createElement('div');
+				anchor.classList.add("appnotifier-banner");
+				document.body.appendChild(anchor);
 			}
-
+	
 		} else {
-			anchor = $(anchorParam);
+			anchor = document.querySelector(anchorParam);
 		}
-		anchor.html('');
+		anchor.innerHTML="";
 		return anchor;
 	};
-
+	
 	var styleFunctions = {
 		"info" : function(elt) {
-			elt.css("background-color", "#000").css("padding", "5px 0");
+			elt.style.backgroundColor = "#000";
+			elt.style.padding = "5px 0";
 		},
 		"error" : function(elt) {
-			elt.css("background-color", "#f00").css("padding", "5px 0");
+			elt.style.backgroundColor = "#f00";
+			elt.style.padding = "5px 0";
 		},
 		"warning" : function(elt) {
-			elt.css("background-color", "#ffbf00").css("color", "#000").css("padding", "5px 0");
+			elt.style.backgroundColor = "#ffbf00";
+			elt.style.color="#000";
+			elt.style.padding = "5px 0";
 		}
 	};
-
+	
+	var buildNotification = function(notification,banner){
+		var ligne = document.createElement('div');
+		ligne.innerHTML=notification.message;
+		ligne.classList.add("appnotifier-" + notification.type.toLowerCase());
+		if (importStyleParam) {
+			styleFunctions[notification.type.toLowerCase()](ligne);
+		}
+		banner.appendChild(ligne);
+	};
+	
 	var buildBanner = function(data) {
-		console.log(data);
-		var content = getAnchor();
+		var banner = getAnchor();
 		if (data.length > 0) {
 			if (getParam("_classOfBanner")) {
-				content.addClass(getParam("_classOfBanner"));
+				banner.classList.add(getParam("_classOfBanner"));
 			}
 			if (importStyleParam) {
-				content.css("text-align", "center");
-				content.css("color", "#fff");
-				content.css("font-weight", "bold");
-				content.css("position", "fixed");
-				content.css("bottom", "0");
-				content.css("display", "block");
-				content.css("width", "100%");
+				banner.style.textAlign="center";
+				banner.style.color="#fff";
+				banner.style.fontWeight="bold";
+				banner.style.position="fixed";
+				banner.style.bottom=0;
+				banner.style.display="block";
+				banner.style.width="100%";
 			}
-			for ( var d in data) {
-				var ligne = $("<div>").html(data[d].message).addClass("appnotifier-" + data[d].type.toLowerCase());
-				if (importStyleParam) {
-					styleFunctions[data[d].type.toLowerCase()](ligne);
-				}
-				content.append(ligne);
+			for ( var i in data) {
+				buildNotification(data[i],banner);
 			}
-			content.show();
-
+			banner.style.display="block";
+	
 		} else {
-			content.hide();
+			banner.style.display="none";
 		}
-		console.log(content);
 	};
+	
+	
+	var executeJsonPRequest = function (url,successCallBack){
+		var head = document.head || document.getElementsByTagName( 'head' )[0];
+		var scriptTag = document.createElement( 'script' );
+		scriptTag.type="text/javascript";
+		var callbackName = "__an_"+new Date().getTime();
+		var urlToCall = url+"?callback="+callbackName;
+		window[callbackName] = function(data){
+			buildBanner(data);
+			head.removeChild(scriptTag);
+			scriptTag=null;
+			delete window[callbackName];
+		};
+		scriptTag.src=urlToCall;
+		head.appendChild(scriptTag);
+	};
+	
+	
+	var callAppNotifier = function() {
+		executeJsonPRequest("[[URL_ROOT]]rs/public/" + getParam("_appUid") ,buildBanner);
+	};
+	
+	
+	var launchAppNotifier = function(){
+		if (refreshParam > 0) {
+			window.setInterval(callAppNotifier, refreshParam * 1000);
+		}
+	};
+	
+	launchAppNotifier();
+	
 
-	callAppNotifier();
-	if (refreshParam > 0) {
-		window.setInterval(callAppNotifier, refreshParam * 1000);
-	}
+})(window,document);
 
-});
+
