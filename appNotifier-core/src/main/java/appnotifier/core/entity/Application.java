@@ -13,79 +13,88 @@ import com.fasterxml.jackson.annotation.JsonView;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Application extends GenericEntity {
 
-    public interface MinimalView extends GenericView {
-    }
+	public interface MinimalView extends GenericView {}
 
-    public interface ListView extends MinimalView {
-    }
+	public interface ListView extends MinimalView {}
 
-    @JsonView(MinimalView.class)
-    private String nom;
+	@JsonView(MinimalView.class)
+	private String name;
 
-    @JsonView(MinimalView.class)
-    private String url;
+	@JsonView(MinimalView.class)
+	private String url;
 
-    @JsonView(MinimalView.class)
-    private String uid;
+	@JsonView(MinimalView.class)
+	private String uid;
 
-    @OneToMany(cascade = { CascadeType.ALL }, mappedBy = "application")
-    private List<Notification> notifications;
+	@OneToMany(cascade = { CascadeType.ALL }, mappedBy = "application")
+	private List<Notification> notifications;
 
-    public Application() {
-        super();
-        notifications = new ArrayList<Notification>();
-    }
 
-    public Long getId() {
-        return id;
-    }
+	public Application() {
+		super();
+		notifications = new ArrayList<Notification>();
+	}
 
-    public String getNom() {
-        return nom;
-    }
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getUid() {
-        return uid;
-    }
 
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public List<Notification> getNotifications() {
-        if (notifications == null) {
-            notifications = new ArrayList<Notification>();
-        }
-        return notifications;
-    }
 
-    public void setNotifications(List<Notification> notifications) {
-        this.notifications = notifications;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getUrl() {
-        return url;
-    }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
+	public String getUid() {
+		return uid;
+	}
 
-    @JsonView(ListView.class)
-    public Integer getNbOfShownNotifications() {
-        if (notifications == null) {
-            return 0;
-        }
-        int count = 0;
-        for (Notification notif : getNotifications()) {
-            if (notif.isShown()) {
-                count++;
-            }
-        }
-        return count;
-    }
+
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
+
+
+	public List<Notification> getNotifications() {
+		if (notifications == null) {
+			notifications = new ArrayList<Notification>();
+		}
+		return notifications;
+	}
+
+
+	public void setNotifications(List<Notification> notifications) {
+		this.notifications = notifications;
+	}
+
+
+	public String getUrl() {
+		return url;
+	}
+
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+
+	@JsonView(ListView.class)
+	public Integer getNbOfShownNotifications() {
+		if (notifications == null) {
+			return 0;
+		}
+		int count = 0;
+		for (Notification notif : getNotifications()) {
+			if (notif.isShown()) {
+				count++;
+			}
+		}
+		return count;
+	}
 }

@@ -9,10 +9,6 @@
         <level value="info" />
     </logger>
 
-    <logger name="appnotifier.web.servlet.WebJarsServlet">
-        <level value="debug" />
-    </logger>
-
     <logger name="appnotifier.web.provider">
         <level value="info" />
     </logger>

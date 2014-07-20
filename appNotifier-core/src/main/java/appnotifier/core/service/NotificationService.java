@@ -5,15 +5,20 @@ import appnotifier.core.entity.Notification;
 
 public interface NotificationService {
 
-    List<Notification> getCurrentNotificationsByAppUid(String appUid);
+	List<Notification> getCurrentNotificationsByAppUid(String appUid);
 
-    List<Notification> getAllNotificationsByAppUid(String appUid);
 
-    Notification toggleActif(long notifId);
+	List<Notification> getAllNotificationsByAppUid(String appUid);
 
-    void delete(long notifId);
 
-    Notification saveNotifWithAppUID(Notification newNotif, String appUid);
+	Notification toggleActiveState(long notifId);
 
-    Notification updateNotif(Notification updatedNotif, long notifId);
+
+	void delete(long notifId);
+
+
+	Notification saveNotifWithAppUID(Notification newNotif, String appUid);
+
+
+	Notification updateNotif(Notification updatedNotif, long notifId);
 }

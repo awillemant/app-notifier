@@ -101,7 +101,7 @@
 	
 	
 	var callAppNotifier = function() {
-		executeJsonPRequest("[[URL_ROOT]]rs/public/" + getParam("_appUid") ,buildBanner);
+		executeJsonPRequest("[[ROOT_URL]]rs/public/" + getParam("_appUid") ,buildBanner);
 	};
 	
 	
