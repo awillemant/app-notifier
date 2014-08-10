@@ -1,6 +1,5 @@
 package appnotifier.core.entity;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,7 +7,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import appnotifier.core.enumeration.TypeNotification;
 import appnotifier.core.view.GenericView;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -19,9 +17,6 @@ import com.fasterxml.jackson.annotation.JsonView;
 public class Notification extends GenericEntity {
 
 	public interface ListView extends GenericView {}
-
-	@Transient
-	private SimpleDateFormat sdf;
 
 	@JsonView(ListView.class)
 	private String message;
@@ -38,7 +33,7 @@ public class Notification extends GenericEntity {
 	private Date endDate;
 
 	@JsonView(ListView.class)
-	private boolean active;
+	private boolean enabled;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "application_id", nullable = false)
@@ -115,24 +110,24 @@ public class Notification extends GenericEntity {
 	}
 
 
-	public boolean isActive() {
-		return active;
+	public boolean isEnabled() {
+		return enabled;
 	}
 
 
-	public void setActive(boolean active) {
-		this.active = active;
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 
 	@JsonView(ListView.class)
 	public boolean isShown() {
 		Date now = new Date();
-		return active && startDate.before(now) && endDate.after(now);
+		return enabled && startDate.before(now) && endDate.after(now);
 	}
 
 
 	public void toggleActiveState() {
-		active = !active;
+		enabled = !enabled;
 	}
 }

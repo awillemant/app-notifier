@@ -4,7 +4,7 @@ define([ 'modules/appnotifierModule' ], function(appnotifierModule) {
 
 		this.openModal = function(confirmationText, callbackIfYes, callbackIfNo) {
 			var modalInstance = $modal.open({
-				template : '<div class="modal-body"><p class="lead">' + confirmationText + '</p></div>' + '<div class="modal-footer">' + '<button type="button" class="btn btn-success" x-ng-click="yes()">Oui</button>' + '<button type="button" class="btn btn-danger" x-ng-click="no()" >Non</button>' + '</div>',
+				template : '<div class="modal-body"><p class="lead">' + confirmationText + '</p></div>' + '<div class="modal-footer">' + '<button type="button" class="btn btn-success" x-ng-click="yes()">Yes</button>' + '<button type="button" class="btn btn-danger" x-ng-click="no()" >No</button>' + '</div>',
 				controller : modalConfirmationController,
 				resolve : {
 					confirmationText : function() {

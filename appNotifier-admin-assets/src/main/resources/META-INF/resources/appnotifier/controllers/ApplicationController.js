@@ -5,7 +5,7 @@ define([ 'modules/appnotifierModule', 'controllers/subcontrollers/ModalApplicati
 		$scope.applications = [];
 
 		var refreshApplications = function() {
-			$log.debug("Rafraîchissement de la liste des applications");
+			$log.debug("Refreshing list of applications");
 			$scope.futureApplications = Application.query().$promise;
 			$scope.futureApplications.then(function(data) {
 				$scope.applications = data;
@@ -13,23 +13,23 @@ define([ 'modules/appnotifierModule', 'controllers/subcontrollers/ModalApplicati
 		};
 
 		$scope.createApp = function() {
-			$log.debug("Création d'une nouvelle application");
-			openModal(new Application(), "Créer une application");
+			$log.debug("Creation of a new application");
+			openModal(new Application(), "Add an application");
 		};
 
 		$scope.editApp = function(currentApplication) {
-			$log.debug("Edition de l'application " + currentApplication.id);
-			openModal(angular.copy(currentApplication), "Editer une application");
+			$log.debug("Editing application " + currentApplication.id);
+			openModal(angular.copy(currentApplication), "Edit application");
 		};
 
 		$scope.deleteApp = function(currentApplication) {
-			ModalConfirmationService.openModal("L'application ainsi que toutes ses notifications vont être supprimées définitivement.<br/> Confirmer la suppression ?", function() {
-				$log.debug("Suppression de l'application " + currentApplication.id);
+			ModalConfirmationService.openModal("The application and all of its notifications will be erased definitely.<br/> Proceed anyway?", function() {
+				$log.debug("Deleting application " + currentApplication.id);
 				currentApplication.$delete(function() {
 					refreshApplications();
 				});
 			}, function() {
-				$log.debug("Annulation de la suppression d'application");
+				$log.debug("Cancelling application deletion");
 			});
 		};
 

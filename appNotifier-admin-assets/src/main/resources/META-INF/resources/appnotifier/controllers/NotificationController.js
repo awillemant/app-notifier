@@ -7,13 +7,13 @@ define([ 'modules/appnotifierModule', 'controllers/subcontrollers/ModalNotificat
 		Application.get({
 			id : $routeParams.appUID
 		}, function(data) {
-			$scope.applicationName = data.nom;
+			$scope.applicationName = data.name;
 			$scope.applicationUrl = data.url;
 		});
 
 		var refreshNotifications = function() {
 			var appUID = $routeParams.appUID;
-			$log.debug("Rafraîchissement de la liste des notifications pour l'application " + appUID);
+			$log.debug("Refreshing list of notifications for application " + appUID);
 
 			$scope.futureNotifications = Notification.queryForApp({
 				appUID : appUID
@@ -24,10 +24,10 @@ define([ 'modules/appnotifierModule', 'controllers/subcontrollers/ModalNotificat
 			});
 		};
 
-		$scope.toggleActif = function(notifIdx) {
+		$scope.toggleEnabled = function(notifIdx) {
 			var id = $scope.notifications[notifIdx].id;
-			$log.debug("Changement de l'état de la notification " + id);
-			var futureNotif = Notification.toggleActif({
+			$log.debug("Changing state for notification " + id);
+			var futureNotif = Notification.toggleEnabled({
 				id : id
 			}).$promise;
 
@@ -37,24 +37,24 @@ define([ 'modules/appnotifierModule', 'controllers/subcontrollers/ModalNotificat
 		};
 
 		$scope.createNotif = function() {
-			$log.debug("Création d'une nouvelle notification");
+			$log.debug("Creation of a new notification");
 			openModal(new Notification(), "create");
 		};
 
 		$scope.editNotif = function(currentNotification) {
-			$log.debug("Edition de la notification " + currentNotification.id);
+			$log.debug("Editing notification " + currentNotification.id);
 			openModal(angular.copy(currentNotification), "edit");
 		};
 
 		$scope.deleteNotif = function(currentNotification) {
-			ModalConfirmationService.openModal("La notification va être supprimée définitivement.<br/> Confirmer la suppression ?", function() {
-				$log.debug("Suppression de la notification " + currentNotification.id);
+			ModalConfirmationService.openModal("The notification will be erased definitely.<br/> Proceed anyway?", function() {
+				$log.debug("Deleting notification " + currentNotification.id);
 				currentNotification.$delete(function() {
-					$log.debug("Suppression réussie");
+					$log.debug("Deletion ok");
 					refreshNotifications();
 				});
 			}, function() {
-				$log.debug("Annulation de la suppression de notification");
+				$log.debug("Cancelling deletion");
 			});
 		};
 

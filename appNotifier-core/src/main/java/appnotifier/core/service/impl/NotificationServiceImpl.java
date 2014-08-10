@@ -41,7 +41,7 @@ public class NotificationServiceImpl implements NotificationService {
 
 
 	@Override
-	public Notification toggleActiveState(long notifId) {
+	public Notification toggleEnabled(long notifId) {
 		LOGGER.debug("updating active state for notification {}", notifId);
 		Notification notif = notificationDAO.findOne(notifId);
 		notif.toggleActiveState();
@@ -69,7 +69,7 @@ public class NotificationServiceImpl implements NotificationService {
 	public Notification updateNotif(Notification updatedNotif, long notifId) {
 		LOGGER.debug("updating notification {}", notifId);
 		Notification storedNotification = notificationDAO.findOne(notifId);
-		storedNotification.setActive(updatedNotif.isActive());
+		storedNotification.setEnabled(updatedNotif.isEnabled());
 		storedNotification.setMessage(updatedNotif.getMessage());
 		storedNotification.setType(updatedNotif.getType());
 		storedNotification.setStartDate(updatedNotif.getStartDate());

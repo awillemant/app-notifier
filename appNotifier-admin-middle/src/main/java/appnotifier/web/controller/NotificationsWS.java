@@ -39,11 +39,11 @@ public class NotificationsWS {
 
 
 	@POST
-	@Path("/actif/{notifId}")
+	@Path("/enabled/{notifId}")
 	@JsonView(Notification.ListView.class)
 	public Notification toggleActiveState(@PathParam("notifId") long notifId) {
 		LOGGER.info("updating active state for notification {}", notifId);
-		return notificationService.toggleActiveState(notifId);
+		return notificationService.toggleEnabled(notifId);
 	}
 
 

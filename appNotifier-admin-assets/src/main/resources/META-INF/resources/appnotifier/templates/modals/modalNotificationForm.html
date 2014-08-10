@@ -14,14 +14,14 @@
 			
 			<div class="col-md-6">
 				<div class="form-group">
-					<label for="type">Type de notification</label>
+					<label for="type">Notification type</label>
 					<select class="form-control" id="type" name="type" x-ng-options="type.value as type.label for type in typesOfNotification"
 						x-ng-model="notification.type" x-ng-required></select>
 				</div>
 			</div>
 			<div class="col-md-6">
 				<div class="checkbox">
-					<label> <input type="checkbox" x-ng-model="notification.actif"> Activer
+					<label> <input type="checkbox" x-ng-model="notification.actif"> Enabled
 					</label>
 				</div>
 			</div>
@@ -29,31 +29,31 @@
 
 		<div class="row">
 			<div class="col-md-6">
-				<label>Date de début</label>
+				<label>Start date</label>
 				<p class="input-group">
-					<input type="text" id="dateDebut" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="notification.dateDebut" is-open="false" datepicker-options="dateOptions" ng-required="true"
-						current-text="ajd'hui" clear-text="eff." close-text="fermer" toggle-weeks-text="semaines" /> <span class="input-group-btn">
+					<input type="text" id="startDate" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="notification.startDate" is-open="false" datepicker-options="dateOptions" ng-required="true" />
+					<span class="input-group-btn">
 						<button class="btn btn-default">
 							<i class="glyphicon glyphicon-calendar"></i>
 						</button>
 					</span>
 				</p>
 				<p>
-					<timepicker hour-step="1" minute-step="15" show-meridian="false" ng-model="notification.dateDebut"></timepicker>
+					<timepicker hour-step="1" minute-step="15" ng-model="notification.startDate"></timepicker>
 				</p>
 			</div>
 			<div class="col-md-6">
-				<label>Date de fin</label>
+				<label>End date</label>
 				<p class="input-group">
-					<input type="text" id="dateFin" date-order-check="dateDebut" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="notification.dateFin" is-open="false" datepicker-options="dateOptions"
-						ng-required="true" current-text="ajd'hui" clear-text="eff." close-text="fermer" toggle-weeks-text="semaines" /> <span class="input-group-btn">
+					<input type="text" id="dateFin" date-order-check="endDate" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="notification.endDate" is-open="false" datepicker-options="dateOptions"	ng-required="true"  />
+					<span class="input-group-btn">
 						<button class="btn btn-default">
 							<i class="glyphicon glyphicon-calendar"></i>
 						</button>
 					</span>
 				</p>
 				<p>
-					<timepicker hour-step="1" minute-step="15" show-meridian="false" ng-model="notification.dateFin"></timepicker>
+					<timepicker hour-step="1" minute-step="15" ng-model="notification.endDate"></timepicker>
 				</p>
 			</div>
 		</div>
@@ -65,12 +65,12 @@
 <div class="modal-footer">
 	<div class="row">
 		<div class="col-md-6">
-			<div class="alert alert-danger text-center" x-ng-show="badDateOrder()">Les dates ne sont pas cohérentes !</div>
+			<div class="alert alert-danger text-center" x-ng-show="badDateOrder()">Start date must be before end date!</div>
 		</div>
 		<div class="col-md-6">
-			<button type="button" class="btn btn-default" x-ng-click="close()">Annuler</button>
+			<button type="button" class="btn btn-default" x-ng-click="close()">Cancel</button>
 			<button type="button" class="btn btn-primary" x-ng-click="save()" x-ng-disabled="formNotification.$invalid || !hasChanged() || badDateOrder()">
-				<i class="fa fa-save"></i> Enregistrer
+				<i class="fa fa-save"></i> Save
 			</button>
 		</div>
 	</div>

@@ -3,13 +3,13 @@ define([ 'jquery', 'modules/appnotifierModule' ], function($, appnotifierModule)
 	appnotifierModule.value("ModalNotificationFormController", function($scope, $log, $modalInstance, notification, mode, appUID) {
 
 		$scope.typesOfNotification = [ {
-			label : "Message d'information",
+			label : "Info",
 			value : "INFO"
 		}, {
-			label : "Message d'avertissement",
+			label : "Warning",
 			value : "WARNING"
 		}, {
-			label : "Message d'erreur",
+			label : "Error",
 			value : "ERROR"
 		} ];
 
@@ -19,20 +19,21 @@ define([ 'jquery', 'modules/appnotifierModule' ], function($, appnotifierModule)
 		};
 
 		if (mode == "create") {
-			$scope.modalTitle = "Créer une notification";
+			$scope.modalTitle = "Create a notification";
 		} else if (mode == "edit") {
-			$scope.modalTitle = "Editer une notification";
+			$scope.modalTitle = "Edit a notification";
 		}
 
 		$scope.notification = notification;
 
 		if ($scope.notification.type == undefined) {
-			$log.debug("Initialisation des date et time pickers");
+			$log.debug("Initialization of date and time pickers");
 			$scope.notification.type = "INFO";
-			$scope.notification.dateDebut = new Date();
-			$scope.notification.dateDebut.setHours(12, 0, 0, 0);
-			$scope.notification.dateFin = new Date();
-			$scope.notification.dateFin.setHours(13, 0, 0, 0);
+			$scope.notification.enabled = true;
+			$scope.notification.startDate = new Date();
+			$scope.notification.startDate.setHours(12, 0, 0, 0);
+			$scope.notification.endDate = new Date();
+			$scope.notification.endDate.setHours(13, 0, 0, 0);
 		}
 
 		$scope.original = angular.copy(notification);

@@ -6,19 +6,19 @@
 
 <div class="modal-body">
 	<form name="formApplication" novalidate>
-		<div class="form-group" x-ng-class="{'has-error':!formApplication.nomApplication.$valid,'has-success':formApplication.nomApplication.$valid}">
-			<label for="nomApplication">Nom de l'application *</label> <input type="text" class="form-control" id="nomApplication" name="nomApplication" placeholder="nom" required x-ng-model="application.nom" />
+		<div class="form-group" x-ng-class="{'has-error':!formApplication.applicationName.$valid,'has-success':formApplication.applicationName.$valid}">
+			<label for="applicationName">Application Name *</label> <input type="text" class="form-control" id="applicationName" name="applicationName" placeholder="name" required x-ng-model="application.name" />
 		</div>
-		<div class="form-group" x-ng-class="{'has-error':!formApplication.urlApplication.$valid,'has-success':formApplication.urlApplication.$valid}">
-			<label for="urlApplication">URL de l'application *</label> <input type="url" class="form-control" id="urlApplication" name="urlApplication" placeholder="URL" required x-ng-model="application.url" />
+		<div class="form-group" x-ng-class="{'has-error':!formApplication.applicationUrl.$valid,'has-success':formApplication.applicationUrl.$valid}">
+			<label for="applicationUrl">Application URL *</label> <input type="url" class="form-control" id="applicationUrl" name="applicationUrl" placeholder="URL" required x-ng-model="application.url" />
 		</div>
 
 	</form>
 </div>
 
 <div class="modal-footer">
-	<button type="button" class="btn btn-default" x-ng-click="close()">Annuler</button>
+	<button type="button" class="btn btn-default" x-ng-click="close()">Cancel</button>
 	<button type="button" class="btn btn-primary" x-ng-click="save()" x-ng-disabled="formApplication.$invalid || !hasChanged()">
-		<i class="fa fa-save"></i> Enregistrer
+		<i class="fa fa-save"></i> Save
 	</button>
 </div>

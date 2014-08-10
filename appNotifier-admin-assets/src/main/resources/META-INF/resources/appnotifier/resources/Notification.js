@@ -11,9 +11,9 @@ define([ 'modules/appnotifierModule' ], function(appnotifierModule) {
 				},
 				isArray : true
 			},
-			toggleActif : {
+			toggleEnabled : {
 				method : 'POST',
-				url : 'rs/notifications/actif/:id',
+				url : 'rs/notifications/enabled/:id',
 				params : {
 					id : '@id'
 				},

@@ -1,13 +1,13 @@
 <div class="row">
 	<div class="col-sm-3 col-md-2 sidebar">
 		<ul class="nav nav-sidebar">
-			<li class="active"><a href=""><i class="fa fa-list"></i> Liste des applications</a></li>
-			<li><a href="" x-ng-click="createApp()"><i class="fa fa-plus"></i> Ajouter une application</a></li>
+			<li class="active"><a href=""><i class="fa fa-list"></i> List of applications</a></li>
+			<li><a href="" x-ng-click="createApp()"><i class="fa fa-plus"></i> Add an application</a></li>
 		</ul>
 
 	</div>
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-		<h1>Liste des applications</h1>
+		<h1>List of applications</h1>
 
 		<div class="input-group input-group-sm col-md-2 pull-right searchBox">
 			<input type="text" class="form-control " x-ng-model="queryFilter" /> <span class="input-group-addon"><i class="fa fa-search"></i></span>
@@ -15,14 +15,14 @@
 
 		<table class="table">
 			<tr>
-				<th class="nom t-first"><a href="" ng-click="predicate = 'nom'; reverse=!reverse">Nom</a></th>
+				<th class="name t-first"><a href="" ng-click="predicate = 'name'; reverse=!reverse">Name</a></th>
 				<th class="url">URL</th>
 				<th class="uid">Unique ID</th>
-				<th class="nbOfShownNotifications text-center"><a href="" ng-click="predicate = 'nbOfShownNotifications'; reverse=!reverse">Notifications affichées</a></th>
+				<th class="nbOfShownNotifications text-center"><a href="" ng-click="predicate = 'nbOfShownNotifications'; reverse=!reverse">Notifications shown</a></th>
 				<th class="actions t-last"></th>
 			</tr>
 			<tr x-ng-repeat="currentApplication in applications | filter:queryFilter | orderBy:predicate:reverse">
-				<td>{{currentApplication.nom}}</td>
+				<td>{{currentApplication.name}}</td>
 				<td><a href="{{currentApplication.url}}" target="_blank">{{currentApplication.url}}</a></td>
 				<td>{{currentApplication.uid}}</td>
 				<td class="text-center"><span x-ng-show="currentApplication.nbOfShownNotifications > 0" class="badge">{{currentApplication.nbOfShownNotifications}}</span></td>

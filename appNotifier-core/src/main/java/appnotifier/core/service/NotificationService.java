@@ -11,7 +11,7 @@ public interface NotificationService {
 	List<Notification> getAllNotificationsByAppUid(String appUid);
 
 
-	Notification toggleActiveState(long notifId);
+	Notification toggleEnabled(long notifId);
 
 
 	void delete(long notifId);

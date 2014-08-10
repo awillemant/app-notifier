@@ -6,7 +6,6 @@ require.config({
 		'angular' : '../webjars/angularjs/1.2.14/angular.min',
 		'angular-route' : '../webjars/angularjs/1.2.14/angular-route.min',
 		'angular-resource' : '../webjars/angularjs/1.2.14/angular-resource.min',
-		'angular-locale' : '../webjars/angularjs/1.2.14/i18n/angular-locale_fr-fr',
 		'jquery' : '../webjars/jquery/1.11.0/jquery.min'
 	},
 	'shim' : {
@@ -20,14 +19,11 @@ require.config({
 		'angular-resource' : {
 			'deps' : [ 'angular' ]
 		},
-		'angular-locale' : {
-			'deps' : [ 'angular' ]
-		},
 		'bootstrap' : {
 			'deps' : [ 'jquery' ]
 		},
 		'ui-bootstrap' : {
-			'deps' : [ 'angular', 'angular-locale' ]
+			'deps' : [ 'angular' ]
 		}
 
 	},
